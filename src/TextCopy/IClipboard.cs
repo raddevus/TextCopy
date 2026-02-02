@@ -1,4 +1,5 @@
-﻿namespace TextCopy;
+using System.Threading;
+namespace TextCopy;
 
 /// <summary>
 /// Provides methods to place text on and retrieve text from the system Clipboard.
@@ -8,7 +9,7 @@ public interface IClipboard
     /// <summary>
     /// Retrieves text data from the Clipboard.
     /// </summary>
-    public Task<string?> GetTextAsync(Cancellation cancellation = default);
+    public Task<string?> GetTextAsync(CancellationToken cancellation = default);
 
     /// <summary>
     /// Retrieves text data from the Clipboard.
@@ -18,7 +19,7 @@ public interface IClipboard
     /// <summary>
     /// Clears the Clipboard and then adds text data to it.
     /// </summary>
-    public Task SetTextAsync(string text, Cancellation cancellation = default);
+    public Task SetTextAsync(string text, CancellationToken cancellation = default);
 
     /// <summary>
     /// Clears the Clipboard and then adds text data to it.

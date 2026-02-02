@@ -39,13 +39,14 @@ Error: {errorBuilder}";
         var error = $@"Could not execute process. Command line: bash {arguments}.
 Output: {outputBuilder}
 Error: {errorBuilder}";
-        throw new(error);
+       return error;
+//        throw new(error);
     }
 
     //To work around https://github.com/dotnet/runtime/issues/27128
     static bool DoubleWaitForExit(this Process process)
     {
-        var result = process.WaitForExit(500);
+        var result = process.WaitForExit(5);
         if (result)
         {
             process.WaitForExit();

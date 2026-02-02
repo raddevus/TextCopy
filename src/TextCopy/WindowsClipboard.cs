@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-
+using System.Threading;
 static class WindowsClipboard
 {
-    public static async Task SetTextAsync(string text, Cancellation cancellation)
+    public static async Task SetTextAsync(string text, CancellationToken cancellation)
     {
         await TryOpenClipboardAsync(cancellation);
 
@@ -65,7 +65,7 @@ static class WindowsClipboard
         }
     }
 
-    static async Task TryOpenClipboardAsync(Cancellation cancellation)
+    static async Task TryOpenClipboardAsync(CancellationToken cancellation)
     {
         var num = 10;
         while (true)
@@ -103,7 +103,7 @@ static class WindowsClipboard
         }
     }
 
-    public static async Task<string?> GetTextAsync(Cancellation cancellation)
+    public static async Task<string?> GetTextAsync(CancellationToken cancellation)
     {
         if (!IsClipboardFormatAvailable(cfUnicodeText))
         {
@@ -165,9 +165,7 @@ static class WindowsClipboard
     const uint cfUnicodeText = 13;
 
     static void ThrowWin32()
-    {
-        throw new Win32Exception(Marshal.GetLastWin32Error());
-    }
+=>        throw new Win32Exception(Marshal.GetLastWin32Error());
 
     [DllImport("User32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]

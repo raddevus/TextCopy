@@ -1,3 +1,4 @@
+using System.Threading;
 #if (NETSTANDARD || NETFRAMEWORK || NET5_0_OR_GREATER)
 using System.Runtime.InteropServices;
 
@@ -31,10 +32,8 @@ static class OsxClipboard
         return Marshal.PtrToStringAnsi(charArray);
     }
 
-    public static Task<string?> GetTextAsync(Cancellation cancellation)
-    {
-        return Task.FromResult(GetText());
-    }
+    public static Task<string?> GetTextAsync(CancellationToken cancellation)
+=> Task.FromResult(GetText());
 
     public static void SetText(string text)
     {
@@ -54,7 +53,7 @@ static class OsxClipboard
         }
     }
 
-    public static Task SetTextAsync(string text, Cancellation cancellation)
+    public static Task SetTextAsync(string text, CancellationToken cancellation)
     {
         SetText(text);
         return Task.CompletedTask;

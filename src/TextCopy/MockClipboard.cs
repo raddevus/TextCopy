@@ -1,25 +1,21 @@
-﻿namespace TextCopy;
+using System.Threading;
+
+namespace TextCopy;
 
 /// <inheritdoc />
 public class MockClipboard : IClipboard
 {
     /// <inheritdoc />
-    public virtual Task<string?> GetTextAsync(Cancellation cancellation = default)
-    {
-        return Task.FromResult<string?>(null);
-    }
+    public virtual Task<string?> GetTextAsync(CancellationToken cancellation = default)
+=>  Task.FromResult<string?>(null);
 
     /// <inheritdoc />
     public virtual string? GetText()
-    {
-        return null;
-    }
+=> null;
 
     /// <inheritdoc />
-    public virtual Task SetTextAsync(string text, Cancellation cancellation = default)
-    {
-        return Task.CompletedTask;
-    }
+    public virtual Task SetTextAsync(string text, CancellationToken cancellation = default)
+=> Task.CompletedTask;
 
     /// <inheritdoc />
     public void SetText(string text)

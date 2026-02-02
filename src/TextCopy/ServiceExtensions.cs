@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 #if NET6_0_OR_GREATER
 using System.Runtime.InteropServices;
 #endif
 
 namespace TextCopy;
-
+#pragma warning disable IDE0022
 /// <summary>
 /// Extensions to <see cref="IServiceCollection"/>.
 /// </summary>
@@ -49,4 +49,6 @@ public static class ServiceExtensions
             return new Clipboard();
         });
     }
+#pragma warning restore IDE0022
+
 }

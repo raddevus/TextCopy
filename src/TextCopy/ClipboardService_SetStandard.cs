@@ -1,11 +1,11 @@
-﻿#if (NETSTANDARD || NETFRAMEWORK || NET5_0_OR_GREATER)
+#if (NETSTANDARD || NETFRAMEWORK || NET5_0_OR_GREATER)
 using System.Runtime.InteropServices;
-
+using System.Threading;
 namespace TextCopy;
 
 public static partial class ClipboardService
 {
-    static Func<string, Cancellation, Task> CreateAsyncSet()
+    static Func<string, CancellationToken, Task> CreateAsyncSet()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {

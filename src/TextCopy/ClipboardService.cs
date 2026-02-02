@@ -1,4 +1,5 @@
-﻿#if NET6_0_OR_GREATER
+using System.Threading;
+#if NET6_0_OR_GREATER
 using System.Runtime.InteropServices;
 #endif
 
@@ -9,26 +10,22 @@ namespace TextCopy;
 /// </summary>
 public static partial class ClipboardService
 {
-    static Func<Cancellation, Task<string?>> getAsyncFunc;
+    static Func<CancellationToken, Task<string?>> getAsyncFunc;
     static Func<string?> getFunc;
 
     /// <summary>
     /// Retrieves text data from the Clipboard.
     /// </summary>
-    public static Task<string?> GetTextAsync(Cancellation cancellation = default)
-    {
-        return getAsyncFunc(cancellation);
-    }
+    public static Task<string?> GetTextAsync(CancellationToken cancellation = default)
+=>       getAsyncFunc(cancellation);
 
     /// <summary>
     /// Retrieves text data from the Clipboard.
     /// </summary>
     public static string? GetText()
-    {
-        return getFunc();
-    }
+=>        getFunc();
 
-    static Func<string, Cancellation, Task> setAsyncAction;
+    static Func<string, CancellationToken, Task> setAsyncAction;
     static Action<string> setAction;
 
     static ClipboardService()
@@ -48,16 +45,12 @@ public static partial class ClipboardService
     /// <summary>
     /// Clears the Clipboard and then adds text data to it.
     /// </summary>
-    public static Task SetTextAsync(string text, Cancellation cancellation = default)
-    {
-        return setAsyncAction(text, cancellation);
-    }
+    public static Task SetTextAsync(string text, CancellationToken cancellation = default)
+  =>  setAsyncAction(text, cancellation);
 
     /// <summary>
     /// Clears the Clipboard and then adds text data to it.
     /// </summary>
     public static void SetText(string text)
-    {
-        setAction(text);
-    }
+=>        setAction(text);
 }

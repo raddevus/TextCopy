@@ -1,15 +1,23 @@
+using System.Threading;
 #if (NETSTANDARD2_0 || NETFRAMEWORK)
 
 static class LinuxClipboard
 {
     static bool isWsl;
+    static string clipCmd = string.Empty;
+
+    static void SetClipCmd(){
+        Console.WriteLine("it's me!");
+//        Console.WriteLine($"this is me 2.0 - {BashRunner.Run("xsel")}");
+    }
 
     static LinuxClipboard()
     {
         isWsl = Environment.GetEnvironmentVariable("WSL_DISTRO_NAME") != null;
+        SetClipCmd();
     }
 
-    public static Task SetTextAsync(string text, Cancellation cancellation)
+    public static Task SetTextAsync(string text, CancellationToken cancellation)
     {
         SetText(text);
 
@@ -28,7 +36,13 @@ static class LinuxClipboard
             }
             else
             {
+                try{
+                    Console.WriteLine("it's 2.0!");
                 BashRunner.Run($"cat {tempFileName} | xsel -i --clipboard ");
+                }
+                catch{}
+                
+                BashRunner.Run($"cat {tempFileName} | xclip -sel c ");
             }
         }
         finally
