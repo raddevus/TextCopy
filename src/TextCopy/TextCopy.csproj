@@ -12,8 +12,6 @@
   <ItemGroup>
     <PackageReference Include="Polyfill" PrivateAssets="all" />
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Condition="$(TargetFramework) == 'net462'" />
-    <WeaverFiles Include="$(SolutionDir)Weavers\bin\$(Configuration)\netstandard2.0\Weavers.dll" />
-    <PackageReference Include="Fody" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     <PackageReference Include="Microsoft.Sbom.Targets" PrivateAssets="all" Condition="$(Configuration)=='Release'" />

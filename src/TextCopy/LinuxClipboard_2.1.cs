@@ -1,20 +1,13 @@
 using System.Threading;
 
 #pragma warning disable IDE0021
-#if (NETSTANDARD2_1 || NET5_0_OR_GREATER)
 
 static class LinuxClipboard
 {
     static bool isWsl;
 
-    static string clipCmd = string.Empty;
-
-    static void SetClipCmd() =>
-        Console.WriteLine("it's me 2.1");
-//        Console.WriteLine($"this is me 2.1 - {BashRunner.Run("xsel")}");
     static LinuxClipboard()  
     {        isWsl = Environment.GetEnvironmentVariable("WSL_DISTRO_NAME") != null;
-        SetClipCmd();
     }
 
     public static async Task SetTextAsync(string text, CancellationToken cancellation)
@@ -47,12 +40,14 @@ static class LinuxClipboard
             }
             else
             {
+
+                Console.WriteLine("Huh! It's 2.1");
+                
                 try{
-                    Console.WriteLine("Huh! It's 2.1");
-                BashRunner.Run($"cat {tempFileName} | xsel -i --clipboard ");
+                    BashRunner.Run($"cat {tempFileName} | xsel -i --clipboard ");
                 }
-                catch(Exception ex){Console.WriteLine($"{ex.Message}");}
-                BashRunner.Run($"cat {tempFileName} | xclip -sel c");
+                catch (Exception ex){Console.WriteLine($"{ex.Message}");}
+                    BashRunner.Run($"cat {tempFileName} | xclip -sel c");
             }
         }
         finally
@@ -101,7 +96,6 @@ static class LinuxClipboard
         }
     }
 }
-#endif
 #pragma warning restore IDE0021
 
 

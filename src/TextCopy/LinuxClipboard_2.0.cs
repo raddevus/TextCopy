@@ -36,13 +36,13 @@ static class LinuxClipboard
             }
             else
             {
-                try{
-                    Console.WriteLine("it's 2.0!");
+                Console.WriteLine("it's 2.0!");
+                if (BashRunner.FileExists("xsel")){
                 BashRunner.Run($"cat {tempFileName} | xsel -i --clipboard ");
                 }
-                catch{}
-                
-                BashRunner.Run($"cat {tempFileName} | xclip -sel c ");
+                else{
+                    BashRunner.Run($"cat {tempFileName} | xclip -sel c ");
+                }
             }
         }
         finally
