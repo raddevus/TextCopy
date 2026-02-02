@@ -4,17 +4,10 @@ using System.Threading;
 static class LinuxClipboard
 {
     static bool isWsl;
-    static string clipCmd = string.Empty;
-
-    static void SetClipCmd(){
-        Console.WriteLine("it's me!");
-//        Console.WriteLine($"this is me 2.0 - {BashRunner.Run("xsel")}");
-    }
 
     static LinuxClipboard()
     {
         isWsl = Environment.GetEnvironmentVariable("WSL_DISTRO_NAME") != null;
-        SetClipCmd();
     }
 
     public static Task SetTextAsync(string text, CancellationToken cancellation)
@@ -37,12 +30,12 @@ static class LinuxClipboard
             else
             {
                 Console.WriteLine("it's 2.0!");
-                if (BashRunner.FileExists("xsel")){
-                BashRunner.Run($"cat {tempFileName} | xsel -i --clipboard ");
+                
+                try{
+                    BashRunner.Run($"cat {tempFileName} | xsel -i --clipboard ");
                 }
-                else{
-                    BashRunner.Run($"cat {tempFileName} | xclip -sel c ");
-                }
+                catch (Exception ex){Console.WriteLine($"{ex.Message}");}
+                    BashRunner.Run($"cat {tempFileName} | xclip -sel c");
             }
         }
         finally
