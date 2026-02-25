@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System.Text;
+
 #if (NETSTANDARD || NETFRAMEWORK || NET5_0_OR_GREATER)
 
 static class BashRunner

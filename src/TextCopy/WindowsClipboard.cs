@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Text;
 static class WindowsClipboard
 {
     public static async Task SetTextAsync(string text, CancellationToken cancellation)
